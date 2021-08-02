@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Score Meter</title>
+</head>
+<body style="background-color: pink;">
+<div>
+  <h2 style="text-align: center;">Score Meter</h2>
+  <p style="text-align: center;">(Enter the number of singles, doubles, triples, fours and sixes in comma separated format)</p>
+</div>
+<div style="text-align:center;">
+  <p>Enter the Score details:</p>
+  &nbsp;&nbsp;
+  <input type="text" id="score">
+</div>
+<br/>
+<div style="text-align: center;">
+  <button onclick="getScoreEvent()"> Get Score </button>
+  <br/>
+  <h3>Total Score<br/><span id="total"></span></h3>
+</div>
+
+<script>
+   var score = document.getElementById('score'),
+    totalScore = document.getElementById('total');
+  
+    function getScoreEvent(){
+      let validScore=0;
+      
+      if(score.value== "")
+      {
+        totalScore.innerHTML=`<p>Invalid Input</p>`;
+      }
+      else
+      {
+        let specialCharacterFormat=/[`!@#$%^&*()_+\-=\[\]{};':"\\|.<>\/?~]/;
+        if(/\s/.test(score.value)){
+          totalScore.innerHTML=`<p>Please fill score without spaces</p>`;
+        }
+        else if(specialCharacterFormat.test(score.value)){
+          totalScore.innerHTML=`<p>Please fill score with only ","</p>`;
+        }
+        else{
+          let runs=score.value.split(',',5);
+          if(runs.length <5){
+            totalScore.innerHTML=`<p>Please enter score with atleast 5 values. If there is no single/ double/ triple/ four/ six, please enter "0"</p>`;
+          }
+          else{
+            validScore  = (runs[0]*1) + (runs[1]*2) + (runs[2]*3) + (runs[3]*4) + (runs[4]*6);
+            totalScore.innerHTML= validScore;
+          }
+        }
+      }
+    }
+</script>
+
+</body>
+</html>
